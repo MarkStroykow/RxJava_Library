@@ -60,14 +60,17 @@ scheduler
 Пример использования
 
 Создание и настройка пула потоков
+```
 CustomThreadPoolExecutor pool = new CustomThreadPoolExecutor(
         2, 4, 5, TimeUnit.SECONDS,
         5, 1,
         RejectionPolicy.ABORT,
         new CustomThreadFactory("MyPool")
 );
+```
 
 Выполнение задач через пул
+```
 for (int i = 0; i < 10; i++) {
     int id = i;
     pool.execute(() -> {
@@ -76,15 +79,17 @@ for (int i = 0; i < 10; i++) {
         System.out.printf("[Task %d] finished%n", id);
     });
 }
+```
 
 Завершение работы пула
 pool.shutdown();
 
 Примеры использования Schedulers
-
+```
 import scheduler.IOThreadScheduler;
 import scheduler.ComputationScheduler;
 import scheduler.SingleThreadScheduler;
+```
 
 Использование IOThreadScheduler для асинхронной обработки
 ```
@@ -107,6 +112,7 @@ Observable.<Integer>create(obs -> {
 Тестирование
 
 Пример теста на flatMap:
+```
 @Test
 public void flatMapTest() {
     List<Integer> out = new ArrayList<>();
@@ -124,10 +130,10 @@ public void flatMapTest() {
             });
     assertEquals(List.of(10, 100, 20, 200), out);
 }
-
+```
 
 Пример теста на работу Schedulers:
-java
+```
 @Test
 public void schedulerTest() throws InterruptedException {
     List<String> threadNames = new ArrayList<>();
@@ -148,4 +154,4 @@ public void schedulerTest() throws InterruptedException {
     boolean notMain = threadNames.stream().anyMatch(name -> !name.contains("main"));
     assertEquals(true, notMain);
 }
-
+```
