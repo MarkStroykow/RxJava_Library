@@ -87,7 +87,8 @@ import scheduler.ComputationScheduler;
 import scheduler.SingleThreadScheduler;
 
 Использование IOThreadScheduler для асинхронной обработки
-```Observable.<Integer>create(obs -> {
+```
+Observable.<Integer>create(obs -> {
         obs.onNext(1); obs.onNext(2); obs.onComplete();
     })
     .subscribeOn(new IOThreadScheduler())
@@ -100,7 +101,8 @@ import scheduler.SingleThreadScheduler;
         }
         @Override public void onError(Throwable t) { t.printStackTrace(); }
         @Override public void onComplete() { System.out.println("Завершено"); }
-    });```
+    });
+```
 
 Тестирование
 
